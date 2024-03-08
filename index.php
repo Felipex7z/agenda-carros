@@ -2,16 +2,12 @@
 <?php 
 
 
-if(!$_POST["marca"]){
-    echo "ERRO escolha a marca do seu carro";
-}
-if(isset($_POST["marca"])){
-    $marca = (string)($_POST["marca"]);
-    $cor = (string)($_POST["cor"]);
-    $tetoSolar = isset($_POST["teto-solar"]);
-    $aro = intval($_POST["aro"]);
-
-
+if(isset($_POST["nome"], ) ){
+    session_start();
+$_SESSION['nome'] = $_POST["nome"];
+$_SESSION['idade'] = intval($_POST["idade"]);
+$idade = $_POST["idade"];
+$anosfaltando = 18 - $idade;
 }
 
 
@@ -19,67 +15,43 @@ if(isset($_POST["marca"])){
 
 ?>
 
+<?php include_once("models/header.php");?>
+
+<div><form action="" method="post">
+    <h3>preencha os dados para agendar seu carro</h3>
+
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="">
+
+    <label for="idade">Idade</label>
+    <input type="number" name="idade" id="">
+    <input type="submit" value="Enviar">
+    <?php 
+if (isset($idade) && $idade < 18) {
+    echo "Erro: vc deve ter no minimo 18 anos volte daqui a $anosfaltando anos";
+}elseif($_SERVER["REQUEST_METHOD"] == "POST" ){
+    header("Location: agenda.php");
+}
+
+
+?>
+
+
+</form></div>
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title></title>
-</head>
-<body>
+
+
+
+
+<?php 
+include_once("models/footer.php");
+?>
+
 
  
-<div>
-<form action="" method="POST">
-        <h3>escolha os atributos do seu carro</h3>
-
-        <label for="marca">marca do carro</label>
-        <select name="marca" id="">
-            <option value="bmw">bmw</option>
-            <option value="mercedes">mercedes</option>
-            <option value="ferrari">ferrari</option>
-        </select> <br>
-
-        <label for="cor"> cor do carro</label> 
-        <select name="cor" id="">
-            <option value="branco">branco</option>
-            <option value="preto">preto</option>
-            <option value="prata">prata</option>
-        </select> <br>
-
-       <label for="teto-solar">teto Solar</label> 
-       <select name="teto-solar" id="">
-        <option value="sim">Sim</option>
-        <option value="não">não</option>
-       </select> <br>
-
-        <label for="aro">aro da roda</label>
-        <select  name="aro" id=""> 
-            <option value="16">16</option>
-            <option value="18">18</option>
-            <option value="21">21</option>
-            </select> <br>
-
-        <input type="submit" name= "pedido" value="Pedir" style="background-color: green; color:bisque; border-radius: 10px">
 
 
-    </form>
-    <?php if(isset($_POST["marca"])){?>
-        <h4>obrigado por fazer seu pedido</h4>
-        <p>seu pedido foi confirmado <?php echo "seu carro da marca $marca e da cor $cor do aro $aro, esta sendo produzido"; ?></p>
-
-   <?php } ?>
-
-</div>
    
-    
-        
-</body>
-</html>
 
-
-</div>
